@@ -1,26 +1,43 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<Header/>
+<div v-if="error">{{error}}</div>
+ <Jobs :jobs="jobs"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Jobs from './components/Jobs.vue'
+import Header from './components/Header.vue'
+import get from './composable/job'
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Jobs,
+    Header,
+  },
+  setup() {
+    const {error, load, jobs} = get();
+
+    load();
+
+    return {error, load, jobs}
+
+
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+  margin:0px;
+  padding:0px;
+  box-sizing: border-box;
 }
+
+#app {
+width: 100%;
+}
+
+
 </style>
